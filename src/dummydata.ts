@@ -10,6 +10,15 @@ export default [
   },
   {
     id: 2,
+    name: 'Khabib',
+    image:
+      'https://media.gettyimages.com/id/1406128197/photo/khabib-nurmagomedov-speaks-during-the-ufc-hall-of-fame-induction-ceremony-at-t-mobile-arena.jpg?s=612x612&w=0&k=20&c=jPAEnFeI6OMyTZ5sEFu1vehr_sJQPvcBYyP62HuPRRQ=',
+    post: 'https://media.gettyimages.com/id/1050069500/photo/ufc-lightweight-champion-khabib-nurmagomedov-poses-during-a-ceremonial-weigh-in-for-ufc-229.jpg?s=612x612&w=0&k=20&c=1Bve6l8TR9SNxeprPir2tp6svSQSxlSTf-z3PYgkmu0=',
+    description: 'Khabib Nurmagomedov',
+    likecount: 540,
+  },
+  {
+    id: 3,
     name: 'cristiano',
     image:
       'https://media.gettyimages.com/id/1235184166/photo/topshot-manchester-uniteds-portuguese-striker-cristiano-ronaldo-celebrates-after-scoring.jpg?s=612x612&w=0&k=20&c=-lAPrm6qwNxaZhXbTf-uI5tN7ZcQyMe9oxT8u6g4cvE=',
@@ -17,22 +26,4 @@ export default [
     description: 'cristiano Ronaldo here',
     likecount: 251,
   },
-  {
-    id: 3,
-    name: 'Khabib',
-    image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT45up1avHmA6bpAfBqLkTAbukE7iIhONeWsg&usqp=CAU',
-    post: 'https://media.gettyimages.com/id/1050069500/photo/ufc-lightweight-champion-khabib-nurmagomedov-poses-during-a-ceremonial-weigh-in-for-ufc-229.jpg?s=612x612&w=0&k=20&c=1Bve6l8TR9SNxeprPir2tp6svSQSxlSTf-z3PYgkmu0=',
-    description: 'Khabib Nurmagomedov',
-    likecount: 540,
-  },
 ];
-
-export type datatype = {
-  id: number;
-  name: string;
-  image: string;
-  post: string;
-  description: string;
-  likecount: number;
-};

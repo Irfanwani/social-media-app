@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   imgname: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 5
+    marginLeft: 5,
   },
   title: {
     fontWeight: 'bold',
@@ -23,14 +23,22 @@ const styles = StyleSheet.create({
   header: {
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginVertical: 5
+    marginVertical: 5,
   },
   image: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width/1.4,
+    height: Dimensions.get('window').width / 1.4,
   },
   flatlist: {
-    marginTop: 80
+    marginTop: 80,
+  },
+  footer: {paddingBottom: 30},
+  profileview: {
+    padding: 20,
+    flexDirection: 'row'
+  },
+  profile: {
+    padding: 30
   }
 });
 export default styles;
