@@ -14,7 +14,10 @@ const Feed: FC<FeedProps> = ({navigation}) => {
     const callback = () => {
       navigation.navigate('profile', {id: item.id});
     };
-    return <ItemComponent {...item} callback={callback} />;
+    const move = (id: number) => {
+      navigation.navigate('profile', {id});
+    }
+    return <ItemComponent {...item} callback={callback} move={move} />;
   };
 
   return (

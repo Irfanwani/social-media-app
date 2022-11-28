@@ -44,6 +44,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 5,
     left: 5
-  }
+  },
+  taglabel: {
+    position: 'absolute',
+    color: 'white',
+    backgroundColor: 'black',
+    padding: 5,
+    elevation: 5,
+    opacity: 0.7,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 10
+  },
 });
 export default styles;

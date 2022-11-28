@@ -10,6 +10,8 @@ export const ItemComponent: FC<datatype> = props => {
   const [lastTap, setLastTap] = useState(new Date());
   const [saved, setSaved] = useState(false);
 
+  const [showTag, setShowTag] = useState(false);
+
   const like = () => {
     setLiked(prev => !prev);
   };
@@ -18,6 +20,8 @@ export const ItemComponent: FC<datatype> = props => {
     setLastTap(new Date());
     if (new Date().getTime() - lastTap.getTime() < 250) {
       setLiked(true);
+    } else {
+      showtags();
     }
   };
 
@@ -31,10 +35,9 @@ export const ItemComponent: FC<datatype> = props => {
   };
 
   const showtags = () => {
+    setShowTag(prev => !prev);
+  };
 
-  }
-
-  
   return (
     <View>
       <View style={styles.header}>
@@ -47,13 +50,27 @@ export const ItemComponent: FC<datatype> = props => {
       <Pressable onPress={pressEvent}>
         <Image source={{uri: props.post}} style={styles.image} />
         {props.tags.length ? (
-          <Icon
-            name="person-circle"
-            size={20}
-            color="black"
-            style={styles.tag}
-            onPress={showtags}
-          />
+          <>
+            <Icon
+              name="person-circle"
+              size={20}
+              color="black"
+              style={styles.tag}
+              onPress={showtags}
+            />
+
+            {showTag &&
+              props.tags.map(tag => (
+                <Tag
+                  key={tag.id}
+                  {...tag}
+                  callback={() => {
+                    props.move(tag.id);
+                  }}
+                  style={{top: 60 * (tag.id + 1), left: 60 * (tag.id + 1)}}
+                />
+              ))}
+          </>
         ) : null}
       </Pressable>
 
@@ -86,5 +103,23 @@ export const ItemComponent: FC<datatype> = props => {
         <Text style={styles.title}>{props.name}</Text> {props.description}
       </Text>
     </View>
+  );
+};
+
+interface TagProps {
+  name: string;
+  id: number;
+  callback: (id: number) => void;
+  style: {};
+}
+
+const Tag: FC<TagProps> = ({name, id, callback, style}) => {
+  const gotoprofile = () => {
+    callback(id);
+  };
+  return (
+    <Text onPress={gotoprofile} style={[styles.taglabel, {...style}]}>
+      {name}
+    </Text>
   );
 };

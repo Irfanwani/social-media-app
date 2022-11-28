@@ -10,6 +10,7 @@ export type datatype = {
   likecount: number;
   tags: Array<{id: number; name: string}>;
   callback?: (event: GestureResponderEvent) => void;
+  move?: any;
 };
 
 export type RootStackParamList = {
