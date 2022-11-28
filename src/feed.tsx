@@ -34,7 +34,21 @@ const ItemComponent: FC<datatype> = props => {
 
       <Image source={{uri: props.post}} style={styles.image} />
 
-      {/* add action icon buttons */}
+      <View style={styles.header}>
+        <View style={styles.imgname}>
+          <IconButton icon="heart-outline" size={28} animated />
+          <IconButton icon="comment-outline" size={25} animated />
+          <IconButton icon="send-outline" size={25} animated />
+        </View>
+        <IconButton icon="bookmark-outline" size={28} animated />
+      </View>
+      {props.likecount ? (
+        <Text style={[styles.title, {marginTop: -10}]}>{props.likecount} likes</Text>
+      ) : null}
+
+      <Text style={{marginLeft: 10}} numberOfLines={3} ellipsizeMode="tail">
+        <Text style={styles.title}>{props.name}</Text> {props.description}
+      </Text>
     </View>
   );
 };
