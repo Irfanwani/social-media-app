@@ -8,12 +8,15 @@ export type datatype = {
   post: string;
   description: string;
   likecount: number;
+  tags: Array<{id: number; name: string}>;
   callback?: (event: GestureResponderEvent) => void;
 };
 
 export type RootStackParamList = {
   feed: undefined;
   profile: {id: number};
+  addpost: undefined;
+  discover: undefined;
 };
 
 export type StackProps = NativeStackScreenProps<RootStackParamList, 'profile'>;

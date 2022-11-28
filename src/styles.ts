@@ -39,6 +39,11 @@ const styles = StyleSheet.create({
   },
   profile: {
     padding: 30
+  },
+  tag : {
+    position: 'absolute',
+    bottom: 5,
+    left: 5
   }
 });
 export default styles;

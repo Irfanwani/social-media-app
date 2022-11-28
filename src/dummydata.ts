@@ -7,6 +7,7 @@ export default [
     post: 'https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821__480.jpg',
     description: 'Picture of Nature.',
     likecount: 100,
+    tags: []
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export default [
     post: 'https://media.gettyimages.com/id/1050069500/photo/ufc-lightweight-champion-khabib-nurmagomedov-poses-during-a-ceremonial-weigh-in-for-ufc-229.jpg?s=612x612&w=0&k=20&c=1Bve6l8TR9SNxeprPir2tp6svSQSxlSTf-z3PYgkmu0=',
     description: 'Khabib Nurmagomedov',
     likecount: 540,
+    tags: [{id: 1, name: 'Irfan wani'}]
   },
   {
     id: 3,
@@ -25,5 +27,6 @@ export default [
     post: 'https://media.gettyimages.com/id/962792890/photo/cristiano-ronaldo-of-real-madrid-lifts-the-uefa-champions-league-trophy-following-his-sides.jpg?s=612x612&w=0&k=20&c=PKU_YTjKNqtHebfmAaLnsQIe8heoIdFuG5vhBqHlwNk=',
     description: 'cristiano Ronaldo here',
     likecount: 251,
+    tags: [{id: 1, name: 'Irfan wani'}, {id: 2, name: 'khabib'}]
   },
 ];
