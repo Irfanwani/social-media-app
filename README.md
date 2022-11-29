@@ -10,3 +10,9 @@
 ### Extra features
 1) Supports double tap like feature (same as instagram)
 2) Animated icons
+
+
+
+
+https://user-images.githubusercontent.com/62456735/204438269-9e564228-164e-47b6-86a5-90f97b18c30b.mp4
+
