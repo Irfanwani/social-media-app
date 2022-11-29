@@ -1,19 +1,20 @@
 import {FC} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Feed from './feed';
-import {GestureResponderEvent, View} from 'react-native';
-import {IconButton} from 'react-native-paper';
-import styles from './styles';
-import Profile from './profile';
-import {RootStackParamList} from './types';
-import AddPost from './add';
-import Discover from './discover';
+import Feed from '../screens/feed';
+import Profile from '../screens/profile';
+import {RootStackParamList} from '../types';
+import AddPost from '../screens/add';
+import Discover from '../screens/discover';
+import HeaderRight from '../components/headerright';
 
+
+// declearing a native stack navigator
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Main: FC = () => {
   return (
+    // creating a navigation container
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -23,6 +24,7 @@ const Main: FC = () => {
           animation: 'slide_from_right',
         }}
         initialRouteName="feed">
+          {/* adding screens to stack navigator */}
         <Stack.Screen
           name="feed"
           component={Feed}
@@ -47,27 +49,5 @@ const Main: FC = () => {
 
 export default Main;
 
-interface HeaderProps {
-  onPress: (screen: string) => void;
-}
 
-const HeaderRight: FC<HeaderProps> = ({onPress}) => {
-  const gotoadd = () => {
-    onPress('addpost');
-  };
 
-  const gotodiscover = () => {
-    onPress('discover');
-  };
-  return (
-    <View style={styles.right}>
-      <IconButton icon="plus" style={styles.plus} size={18} onPress={gotoadd} />
-      <IconButton
-        icon="magnify"
-        size={30}
-        style={{opacity: 0.8}}
-        onPress={gotodiscover}
-      />
-    </View>
-  );
-};

@@ -1,11 +1,13 @@
 import {FC, useState} from 'react';
 import {View, Pressable, Image, ToastAndroid, Platform} from 'react-native';
 import {Avatar, IconButton, Text} from 'react-native-paper';
-import styles from './styles';
-import {datatype} from './types';
+import styles from '../styles';
+import {datatype} from '../types';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Tag from './tag';
 
 export const ItemComponent: FC<datatype> = props => {
+  // props object contains the details of the person and his/her post
   const [liked, setLiked] = useState(false);
   const [lastTap, setLastTap] = useState(new Date());
   const [saved, setSaved] = useState(false);
@@ -16,6 +18,7 @@ export const ItemComponent: FC<datatype> = props => {
     setLiked(prev => !prev);
   };
 
+  // This function is to check for the tap and double tap on the image to show tags and like the post
   const pressEvent = () => {
     setLastTap(new Date());
     if (new Date().getTime() - lastTap.getTime() < 250) {
@@ -25,6 +28,7 @@ export const ItemComponent: FC<datatype> = props => {
     }
   };
 
+  // callback for the save icon button
   const save = () => {
     setSaved(prev => {
       if (!prev && Platform.OS == 'android') {
@@ -34,19 +38,24 @@ export const ItemComponent: FC<datatype> = props => {
     });
   };
 
+  // callback altering the variable deciding whether to show the tag or not
   const showtags = () => {
     setShowTag(prev => !prev);
   };
 
   return (
     <View>
+      {/* dp, name and options icon view */}
       <View style={styles.header}>
+        {/* dp and name view which on click takes to profile screen */}
         <Pressable onPress={props.callback} style={styles.imgname}>
           <Avatar.Image size={40} source={{uri: props.image}} />
           <Text style={styles.title}>{props.name}</Text>
         </Pressable>
         <IconButton icon="dots-vertical" />
       </View>
+
+      {/* post view which is a pressable */}
       <Pressable onPress={pressEvent}>
         <Image source={{uri: props.post}} style={styles.image} />
         {props.tags.length ? (
@@ -61,19 +70,21 @@ export const ItemComponent: FC<datatype> = props => {
 
             {showTag &&
               props.tags.map(tag => (
+                // tag element to show individual tags on a post
                 <Tag
                   key={tag.id}
                   {...tag}
                   callback={() => {
                     props.move(tag.id);
                   }}
-                  style={{top: 60 * (tag.id + 1), left: 60 * (tag.id + 1)}}
+                  style={{top: 60 * (tag.id + 1), left: 60 * (tag.id + 1)}} // dynamically setting the position of the tags based on their index
                 />
               ))}
           </>
         ) : null}
       </Pressable>
 
+      {/* view for action icon buttons (like, comment, share, save) */}
       <View style={styles.header}>
         <View style={styles.imgname}>
           <IconButton
@@ -94,11 +105,14 @@ export const ItemComponent: FC<datatype> = props => {
         />
       </View>
       {props.likecount ? (
+        // show like count if it is greater than zero
         <Text style={[styles.title, {marginTop: -10}]}>
+          {/* adding extra like if the post is liked else get the default count from the data */}
           {liked ? props.likecount + 1 : props.likecount} likes
         </Text>
       ) : null}
 
+      {/* show name with description of the post */}
       <Text style={{marginLeft: 10}} numberOfLines={3} ellipsizeMode="tail">
         <Text style={styles.title}>{props.name}</Text> {props.description}
       </Text>
@@ -106,20 +120,3 @@ export const ItemComponent: FC<datatype> = props => {
   );
 };
 
-interface TagProps {
-  name: string;
-  id: number;
-  callback: (id: number) => void;
-  style: {};
-}
-
-const Tag: FC<TagProps> = ({name, id, callback, style}) => {
-  const gotoprofile = () => {
-    callback(id);
-  };
-  return (
-    <Text onPress={gotoprofile} style={[styles.taglabel, {...style}]}>
-      {name}
-    </Text>
-  );
-};

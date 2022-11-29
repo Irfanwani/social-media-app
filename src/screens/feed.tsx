@@ -1,22 +1,23 @@
 import {FC} from 'react';
 import {FlatList, View} from 'react-native';
-import dummydata from './dummydata';
-import styles from './styles';
-import {ItemComponent} from './itemcomponent';
-import {datatype, StackProps} from './types';
+import dummydata from '../dummydata';
+import styles from '../styles';
+import {ItemComponent} from '../components/itemcomponent';
+import {datatype} from '../types';
+import { FeedProps } from './types';
 
-interface FeedProps {
-  navigation: StackProps['navigation'];
-}
 
 const Feed: FC<FeedProps> = ({navigation}) => {
+  // defining render item for flatlist which will show the posts
   const renderItem = ({item}: {item: datatype}) => {
+    // defining callback for navigating to profile
     const callback = () => {
       navigation.navigate('profile', {id: item.id});
     };
     const move = (id: number) => {
       navigation.navigate('profile', {id});
-    }
+    };
+    // returning the item component to show the details 
     return <ItemComponent {...item} callback={callback} move={move} />;
   };
 
