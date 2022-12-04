@@ -1,5 +1,13 @@
-import {FC, useState} from 'react';
-import {View, Pressable, Image, ToastAndroid, Platform} from 'react-native';
+import {FC, useRef, useState} from 'react';
+import {
+  View,
+  Pressable,
+  ToastAndroid,
+  Platform,
+  Animated,
+  useWindowDimensions,
+  PanResponder,
+} from 'react-native';
 import {Avatar, IconButton, Text} from 'react-native-paper';
 import styles from '../styles';
 import {datatype} from '../types';
@@ -7,6 +15,56 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Tag from './tag';
 
 export const ItemComponent: FC<datatype> = props => {
+  const pan = useRef(new Animated.ValueXY({x: 0, y: 0})).current;
+
+  const dim = useWindowDimensions();
+
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const pointDistance = ([xA, yA]: Array<number>, [xB, yB]: Array<number>) => {
+    return Math.sqrt(Math.pow(xA - xB, 2) + Math.pow(yA - yB, 2));
+  };
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (evt, gestureState) => {
+        const gestureCount = evt.nativeEvent.changedTouches.length;
+        if (gestureCount === 1) {
+          pan.setValue({
+            x: gestureState.dx,
+            y: gestureState.dy,
+          });
+        } else if (gestureCount >= 2) {
+          const points = evt.nativeEvent.changedTouches;
+
+          const t1 = points[0];
+          const t2 = points[1];
+
+          const dist = pointDistance(
+            [t1.pageX, t1.pageY],
+            [t2.pageX, t2.pageY],
+          );
+
+          const panval = dist / dim.width;
+
+          scale.setValue(1 + panval * 2);
+        }
+      },
+      onPanResponderRelease: () => {
+        Animated.parallel([
+          Animated.spring(pan, {
+            toValue: {x: 0, y: 0},
+            useNativeDriver: true,
+          }),
+          Animated.spring(scale, {
+            toValue: 1,
+            useNativeDriver: true,
+          }),
+        ]).start();
+      },
+    }),
+  ).current;
   // props object contains the details of the person and his/her post
   const [liked, setLiked] = useState(false);
   const [lastTap, setLastTap] = useState(new Date());
@@ -57,7 +115,16 @@ export const ItemComponent: FC<datatype> = props => {
 
       {/* post view which is a pressable */}
       <Pressable onPress={pressEvent}>
-        <Image source={{uri: props.post}} style={styles.image} />
+        <Animated.Image
+          source={{uri: props.post}}
+          style={[
+            styles.image,
+            {
+              transform: [{translateX: pan.x}, {translateY: pan.y}, {scale}],
+            },
+          ]}
+          {...panResponder.panHandlers}
+        />
         {props.tags.length ? (
           <>
             <Icon
@@ -119,4 +186,3 @@ export const ItemComponent: FC<datatype> = props => {
     </View>
   );
 };
-
